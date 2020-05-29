@@ -1,19 +1,24 @@
-import React from "react";
-import { Button } from "react-native"
-import BoxCenter from "../components/box-center"
-import {Logo}  from "../components/icons"
-
+import React from 'react'
+import { Button } from 'react-native'
+import { Logo } from '../components/icons'
+import Search from '../components/search'
+import Box from '../components/box'
 
 function SearchView({ navigation }) {
-    return (
-        <BoxCenter bg="birlesikKelimeDark">
-            <Button
-                title="Detaya git"
-                onPress={() => navigation.navigate('Detail')}
-            />
-            <Logo color="white"/>
-        </BoxCenter> 
-    );
+  return (
+    <Box>
+      <Button
+        title="Detaya git"
+        onPress={() => navigation.navigate('Detail')}
+      />
+      <Box py={20}>
+        <Logo color="blue" />
+      </Box>
+      <Box p={10}>
+        <Search mt={4} />
+      </Box>
+    </Box>
+  )
 }
 
-export default SearchView;
+export default SearchView
