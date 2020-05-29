@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from "react"
 import Button from "./button"
 import { Search, Bookmark, RotateCcw } from "./icons"
+import Box from "./box"
+import theme from '../utils/theme';
 
 function TabBar({ state, descriptors, navigation }) {
     return (
@@ -30,14 +32,36 @@ function TabBar({ state, descriptors, navigation }) {
                 };
 
                 return label === 'Arama' ? (
-                    <Button flex={1} onPress={onPress}>
-                        <Search/>                      
-                    </Button>
+                    <Box 
+                    p={15} 
+                    bg="white" 
+                    borderRadius="full"
+                    mt={-15}>
+                        <Button
+                            borderRadius="full"
+                            key={label}
+                            onPress={onPress}
+                            size={56}
+                            bg="red"
+                        >
+                            <Search stroke="white" />
+                        </Button>
+                    </Box>
                 ) : (
-                    <Button height={50} flex={1} onPress={onPress}>
-                    {label === 'Geçmiş' && <RotateCcw/>}
-                    {label === 'Favoriler' && <Bookmark/>}
-                    </Button>)
+                        <Button
+                            key={label}
+                            pt={8}
+                            flexDirection="column"
+                            height={50}
+                            flex={1}
+                            onPress={onPress}>
+                            {label === 'Geçmiş' && <RotateCcw stroke={theme.colors.gray}/>}
+                            {label === 'Favoriler' && <Bookmark stroke={theme.colors.gray} />}
+                            <Box
+                                size={3}
+                                bg={isFocused ? "red" : "white"}
+                                mt={8} />
+                        </Button>)
             })}
         </View>
     );

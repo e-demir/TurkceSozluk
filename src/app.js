@@ -9,7 +9,9 @@ import DetailView from "./views/detail"
 import FavoriteView from "./views/favorite"
 import { createStackNavigator } from '@react-navigation/stack';
 import TabBar from './components/tab-bar';
-import Box from "./components/box"
+import Box from "./components/box";
+import {ThemeProvider} from "styled-components"
+import Theme from "./utils/theme"
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
@@ -25,6 +27,7 @@ function SearchStack() {
 
 function App() {
   return (    
+    <ThemeProvider theme={Theme}>
      <Box flex={1} as= {SafeAreaView}>
       <NavigationContainer>
         <Tab.Navigator initialRouteName="Arama" tabBar={props => <TabBar {...props} />}>        
@@ -34,6 +37,7 @@ function App() {
       </Tab.Navigator>                  
       </NavigationContainer>
       </Box>    
+      </ThemeProvider>
   );
 }
 
