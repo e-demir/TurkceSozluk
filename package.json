@@ -8,8 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "pod": "npx pod-install ios",
-    "lint": "eslint .",
-    "svgr": "svgr /Users/macpro/Desktop/Https/TurkceSozluk/src/icons -d /Users/macpro/Desktop/Https/TurkceSozluk/src/components/icons --native --icon --svg-props 'width=24,height=24, className'"
+    "lint": "eslint *.js **/*.js",
+    "svgr": "svgr ./src/icons -d ./src/components/icons --native --icon --svg-props 'width=24,height=24, className='"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -32,6 +32,7 @@
     "@react-native-community/eslint-config": "^0.0.5",
     "babel-jest": "^24.9.0",
     "eslint": "^6.5.1",
+    "eslint-plugin-react": "^7.20.0",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.58.0",
     "prettier": "^2.0.5",
