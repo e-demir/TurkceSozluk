@@ -32,11 +32,11 @@ function TabBar({ state, descriptors, navigation }) {
                 };
 
                 return label === 'Arama' ? (
-                    <Box 
-                    p={15} 
-                    bg="white" 
-                    borderRadius="full"
-                    mt={-15}>
+                    <Box
+                        p={15}
+                        bg="white"
+                        borderRadius="full"
+                        mt={-15}>
                         <Button
                             borderRadius="full"
                             key={label}
@@ -55,12 +55,13 @@ function TabBar({ state, descriptors, navigation }) {
                             height={50}
                             flex={1}
                             onPress={onPress}>
-                            {label === 'Geçmiş' && <RotateCcw stroke={theme.colors.gray}/>}
+                            {label === 'Geçmiş' && <RotateCcw stroke={theme.colors.gray} />}
                             {label === 'Favoriler' && <Bookmark stroke={theme.colors.gray} />}
                             <Box
                                 size={3}
                                 bg={isFocused ? "red" : "white"}
-                                mt={8} />
+                                mt={8}
+                            />
                         </Button>)
             })}
         </View>
