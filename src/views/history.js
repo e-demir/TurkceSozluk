@@ -1,5 +1,5 @@
 import React from "react";
-import {StatusBar,Text} from "react-native"
+import {StatusBar,Text,SafeAreaView} from "react-native"
 import { useFocusEffect } from '@react-navigation/native';
 import Box from "../components/box";
 
