@@ -1,69 +1,86 @@
-import { View } from 'react-native';
-import React from 'react';
-import Button from './button';
-import { Search, Bookmark, RotateCcw } from './icons';
-import Box from './box';
-import theme from '../utils/theme';
- 
+import React from 'react'
+
+import Button from './button'
+import { Search, Bookmark, RotateCcw } from './icons'
+import Box from './box'
+
+import theme from '../utils/theme'
+
 function TabBar({ state, descriptors, navigation }) {
   return (
-    <View style={{ flexDirection: 'row' }}>
+    <Box
+      pb={20}
+      bg="white"
+      flexDirection="row"
+      style={{
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowRadius: 20
+      }}
+    >
       {state.routes.map((route, index) => {
-        const { options } = descriptors[route.key];
-        // eslint-disable-next-line operator-linebreak
+        const { options } = descriptors[route.key]
+
         const label =
-          // eslint-disable-next-line no-nested-ternary
           options.tabBarLabel !== undefined
             ? options.tabBarLabel
             : options.title !== undefined
-              ? options.title
-              : route.name;
+            ? options.title
+            : route.name
 
-        const isFocused = state.index === index;
+        const isFocused = state.index === index
 
         const onPress = () => {
           const event = navigation.emit({
             type: 'tabPress',
-            target: route.key,
-            canPreventDefault: true
-          });
+            target: route.key
+          })
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name);
+            navigation.navigate(route.name)
           }
-        };
+        }
 
         return label === 'Arama' ? (
-          <Box p={15} bg="white" borderRadius="full" mt={-15}>
-            <Button
-              borderRadius="full"
-              key={label}
-              onPress={onPress}
-              size={56}
-              bg="red"
-            >
+          // search button
+          <Box key={label} p={15} mt={-15} bg="white" borderRadius="full">
+            <Button size={56} bg="red" borderRadius="full" onPress={onPress}>
               <Search stroke="white" />
             </Button>
           </Box>
         ) : (
+          // tab-button
           <Button
             key={label}
-            pt={8}
+            pt={6}
             flexDirection="column"
-            height={50}
+            height={56}
             flex={1}
             onPress={onPress}
           >
-            {label === 'Geçmiş' && <RotateCcw color={theme.colors.textLight} />}
-            {label === 'Favoriler' && (
-              <Bookmark color={theme.colors.textLight} />
+            {label === 'Geçmiş' && (
+              <RotateCcw
+                color={isFocused ? theme.colors.red : theme.colors.textLight}
+              />
             )}
-            <Box size={3} bg={isFocused ? 'red' : 'white'} mt={8} />
+            {label === 'Favoriler' && (
+              <Bookmark
+                color={isFocused ? theme.colors.red : theme.colors.textLight}
+              />
+            )}
+
+            {/* indicator */}
+            <Box
+              size={4}
+              bg={isFocused ? 'red' : 'white'}
+              mt={6}
+              borderRadius="full"
+            />
           </Button>
-        );
+        )
       })}
-    </View>
-  );
+    </Box>
+  )
 }
 
-export default TabBar;
+export default TabBar

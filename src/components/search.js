@@ -1,5 +1,5 @@
 import React from 'react'
-import { Keyboard } from 'react-native'
+import { Keyboard,Platform } from 'react-native'
 import Box from './box'
 import { Search, RotateCcw } from './icons'
 import Input from './input'
@@ -7,9 +7,14 @@ import theme from '../utils/theme'
 import Text from './text'
 import Button from './button'
 
-function SearchBox() {
+function SearchBox({onChangeFocus}) {
+
   const [isFocused, setFocus] = React.useState(false)
   const [value, setValue] = React.useState('')
+
+  React.useEffect(()=>{
+    onChangeFocus(isFocused)
+  },[isFocused, onChangeFocus])
 
   const onCancel = () => {
     Keyboard.dismiss()
@@ -17,7 +22,7 @@ function SearchBox() {
   }
 
   const onFocus = () => {
-    setFocus(true)
+    setFocus(true)    
   }
 
   const onClear = () => {
@@ -56,7 +61,7 @@ function SearchBox() {
         </Button>
         {value.length > 0 && (
           <Button onPress={onClear} position="absolute" right={14} top={14}>
-            <RotateCcw color={theme.colors.textMedium} />
+            <RotateCcw color={ Platform.OS === "ios" ? theme.colors.textMedium : theme.colors.red} />
           </Button>
         )}
       </Box>
