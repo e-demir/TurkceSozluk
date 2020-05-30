@@ -1,52 +1,52 @@
-import React from 'react'
-import { Keyboard,Platform } from 'react-native'
-import Box from './box'
-import { Search, RotateCcw } from './icons'
-import Input from './input'
-import theme from '../utils/theme'
-import Text from './text'
-import Button from './button'
+import React from "react";
+import { Keyboard, Platform } from "react-native";
+import Box from "./box";
+import { Search, RotateCcw } from "./icons";
+import Input from "./input";
+import theme from "../utils/theme";
+import Text from "./text";
+import Button from "./button";
 
-function SearchBox({onChangeFocus}) {
+function SearchBox({ onChangeFocus }) {
+  
+  const [isFocused, setFocus] = React.useState(false);
+  const [value, setValue] = React.useState("");
 
-  const [isFocused, setFocus] = React.useState(false)
-  const [value, setValue] = React.useState('')
-
-  React.useEffect(()=>{
-    onChangeFocus(isFocused)
-  },[isFocused, onChangeFocus])
+  React.useEffect(() => {
+    onChangeFocus(isFocused);
+  }, [isFocused, onChangeFocus]);
 
   const onCancel = () => {
-    Keyboard.dismiss()
-    setFocus(false)
-  }
+    Keyboard.dismiss();
+    setFocus(false);
+  };
 
   const onFocus = () => {
-    setFocus(true)    
-  }
+    setFocus(true);
+  };
 
   const onClear = () => {
-    setValue('')
-  }
+    setValue("");
+  };
 
   return (
     <Box flexDirection="row" alignItems="center">
       <Box position="relative" flex={1}>
         <Input
           style={{
-            shadowColor: '#000',
+            shadowColor: "#000",
             shadowOffset: {
               width: 0,
-              height: 4
+              height: 4,
             },
             shadowOpacity: 0.32,
             shadowRadius: 5.46,
-            elevation: 9
+            elevation: 9,
           }}
           bg="white"
           color="textDark"
           borderWidth={1}
-          borderColor={isFocused ? '#D1D1D1' : 'transparent'}
+          borderColor={isFocused ? "#D1D1D1" : "transparent"}
           height={56}
           placeholder="Türkçe Sözlük'te Ara"
           placeholderTextColor="textMedium"
@@ -61,7 +61,13 @@ function SearchBox({onChangeFocus}) {
         </Button>
         {value.length > 0 && (
           <Button onPress={onClear} position="absolute" right={14} top={14}>
-            <RotateCcw color={ Platform.OS === "ios" ? theme.colors.textMedium : theme.colors.red} />
+            <RotateCcw
+              color={
+                Platform.OS === "ios"
+                  ? theme.colors.textMedium
+                  : theme.colors.red
+              }
+            />
           </Button>
         )}
       </Box>
@@ -71,7 +77,7 @@ function SearchBox({onChangeFocus}) {
         </Button>
       )}
     </Box>
-  )
+  );
 }
 
-export default SearchBox
+export default SearchBox;

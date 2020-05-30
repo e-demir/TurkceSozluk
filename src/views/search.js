@@ -6,6 +6,9 @@ import Box from '../components/box'
 import bg from '../assets/bg.jpg'
 import SafeAreaView from 'react-native-safe-area-view'
 import { useFocusEffect } from '@react-navigation/native'
+import { YellowBox } from 'react-native';
+
+YellowBox.ignoreWarnings(['Animated:']);
 
 function SearchView({}) {
   const [isSearchFocused, setSearchFocused] = React.useState(false)
@@ -21,12 +24,12 @@ function SearchView({}) {
     if (isSearchFocused) {
       Animated.timing(animatedHeight, {
         toValue: 52 + 32,
-        duration: 320
+        duration: 320,
       }).start()
     } else {
       Animated.timing(animatedHeight, {
         toValue: 285,
-        duration: 320
+        duration: 320,
       }).start()
     }
   }, [isSearchFocused, animatedHeight])
