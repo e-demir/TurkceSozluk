@@ -9,6 +9,8 @@ import SafeAreaView from 'react-native-safe-area-view'
 import { useFocusEffect } from '@react-navigation/native'
 import { YellowBox } from 'react-native';
 import { CardContainer, CardTitle, CardSummary } from '../components/card'
+import { SimpleCardContainer } from "../components/simpleCardComponent"
+import { SimpleCardTitle } from "../components/simpleCardComponent"
 
 YellowBox.ignoreWarnings(['Animated:']);
 
@@ -91,18 +93,33 @@ function SearchView({ navigation }) {
 
       {/* content */}
       <Box flex={1} bg="softRed" pt={isSearchFocused ? 0 : 26}>
-        {isSearchFocused ? (
-          <Box p={30} flex={1}>
-            <Text>Öneriler</Text>
+        {isSearchFocused ? (         
+            <Box flex={1}>
+              <FlatList
+                style={{padding:16}}
+                data={DATA}
+                keyExtractor={item => item.id}
+                ListHeaderComponent={
+                <Text color="textLight" mb={10}>
+                  SON ARAMALAR</Text>}
+                renderItem={({ item }) => (
+                  <Box py={6}>
+                    <SimpleCardContainer>
+                      <SimpleCardTitle>{item.title}</SimpleCardTitle>
+                    </SimpleCardContainer>
+                  </Box>
+                )}                
+              />            
           </Box>
+
         ) : (
             <Box py={40} px={16} flex={1}>
               <Box>
                 <Text color="textLight">Bir deyim</Text>
 
-                <CardContainer 
-                mt={10}
-                onPress={() => navigation.navigate("Detail")}
+                <CardContainer
+                  mt={10}
+                  onPress={() => navigation.navigate("Detail")}
                 >
 
                   <CardTitle>on para</CardTitle>
@@ -110,32 +127,18 @@ function SearchView({ navigation }) {
                 </CardContainer>
               </Box>
 
-              <Box mt={40 }>
+              <Box mt={40}>
                 <Text color="textLight">Bir deyim - atasözü</Text>
 
-                <CardContainer 
-                mt={10}
-                onPress={() => navigation.navigate("Detail")}
-                 >
+                <CardContainer
+                  mt={10}
+                  onPress={() => navigation.navigate("Detail")}
+                >
                   <CardTitle>siyem siyem ağlamak</CardTitle>
                   <CardSummary>hafif hafif, ince ince, durmadan gözyaşı dökmek</CardSummary>
                 </CardContainer>
               </Box>
             </Box>
-
-
-            // <Box p={30} flex={1}>
-            //   <FlatList
-            //     data={DATA}
-            //     renderItem={({ item }) => (
-            //       <Box py={5}>
-
-            //       </Box>
-
-            //     )}
-            //     keyExtractor={item => item.id}
-            //   />
-            // </Box>
           )
         }
       </Box>
