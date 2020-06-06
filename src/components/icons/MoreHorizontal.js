@@ -1,7 +1,7 @@
 import * as React from "react";
-import Svg, { Circle, Path } from "react-native-svg";
+import Svg, { Circle } from "react-native-svg";
 
-function SvgSearch(props) {
+function SvgMoreHorizontal(props) {
   return (
     <Svg
       width={24}
@@ -14,10 +14,11 @@ function SvgSearch(props) {
       className=""
       {...props}
     >
-      <Circle cx={11} cy={11} r={8} />
-      <Path d="M21 21l-4.35-4.35" />
+      <Circle cx={12} cy={12} r={1} />
+      <Circle cx={19} cy={12} r={1} />
+      <Circle cx={5} cy={12} r={1} />
     </Svg>
   );
 }
 
-export default SvgSearch;
+export default SvgMoreHorizontal;

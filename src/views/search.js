@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground, StatusBar, Animated, FlatList } from 'react-native'
+import { ImageBackground, StatusBar, Animated, FlatList, ActivityIndicator } from 'react-native'
 import { Logo } from '../components/icons'
 import Search from '../components/search'
 import Box from '../components/box'
@@ -17,6 +17,17 @@ YellowBox.ignoreWarnings(['Animated:']);
 function SearchView({ navigation }) {
   const [isSearchFocused, setSearchFocused] = React.useState(false)
   const [animatedHeight] = React.useState(new Animated.Value(285))
+  const [homeData, setHomeData] = React.useState(null)
+
+  const getHomeData = async () => {
+    const response = await fetch("https://sozluk.gov.tr/icerik")
+    const data = await response.json()
+    setHomeData(data)
+  }
+
+  React.useEffect(() => {
+    getHomeData()
+  }, [])
 
   useFocusEffect(
     React.useCallback(() => {
@@ -93,49 +104,63 @@ function SearchView({ navigation }) {
 
       {/* content */}
       <Box flex={1} bg="softRed" pt={isSearchFocused ? 0 : 26}>
-        {isSearchFocused ? (         
-            <Box flex={1}>
-              <FlatList
-                style={{padding:16}}
-                data={DATA}
-                keyExtractor={item => item.id}
-                ListHeaderComponent={
+        {isSearchFocused ? (
+          <Box flex={1}>
+            <FlatList
+              style={{ padding: 16 }}
+              data={DATA}
+              keyExtractor={item => item.id}
+              ListHeaderComponent={
                 <Text color="textLight" mb={10}>
                   SON ARAMALAR</Text>}
-                renderItem={({ item }) => (
-                  <Box py={6}>
-                    <SimpleCardContainer>
-                      <SimpleCardTitle>{item.title}</SimpleCardTitle>
-                    </SimpleCardContainer>
-                  </Box>
-                )}                
-              />            
+              renderItem={({ item }) => (
+                <Box py={6}>
+                  <SimpleCardContainer>
+                    <SimpleCardTitle>{item.title}</SimpleCardTitle>
+                  </SimpleCardContainer>
+                </Box>
+              )}
+            />
           </Box>
 
         ) : (
             <Box py={40} px={16} flex={1}>
               <Box>
-                <Text color="textLight">Bir deyim</Text>
+                <Text color="textLight">Bir kelime</Text>
 
                 <CardContainer
                   mt={10}
-                  onPress={() => navigation.navigate("Detail")}
+                  onPress={() => navigation.navigate("Detail", { title: "on para" })}
                 >
+                  {homeData ? (
+                    <>
+                      <CardTitle>{homeData?.kelime[0].madde}</CardTitle>
+                      <CardSummary>{homeData?.kelime[0].anlam}</CardSummary>
+                    </>
 
-                  <CardTitle>on para</CardTitle>
-                  <CardSummary>çok az (para).</CardSummary>
+                  ):(
+                    <ActivityIndicator/>
+                  )}
                 </CardContainer>
               </Box>
 
               <Box mt={40}>
-                <Text color="textLight">Bir deyim - atasözü</Text>
+                <Text color="textLight">Bir deyim - Atasözü</Text>
 
                 <CardContainer
                   mt={10}
-                  onPress={() => navigation.navigate("Detail")}
+                  onPress={() => navigation.navigate("Detail", { title: "Siyem siyem ağlamak" })}
                 >
-                  <CardTitle>siyem siyem ağlamak</CardTitle>
-                  <CardSummary>hafif hafif, ince ince, durmadan gözyaşı dökmek</CardSummary>
+                  
+                  {homeData ? (
+                    <>
+                      <CardTitle>{homeData?.atasoz[0].madde}</CardTitle>
+                      <CardSummary>{homeData?.atasoz[0].anlam}</CardSummary>
+                    </>
+
+                  ):(
+                    <ActivityIndicator/>
+                  )}
                 </CardContainer>
               </Box>
             </Box>

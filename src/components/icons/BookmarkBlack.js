@@ -1,13 +1,13 @@
 import * as React from "react";
 import Svg, { Path } from "react-native-svg";
 
-function SvgBookmark(props) {
+function SvgBookmarkBlack(props) {
   return (
     <Svg
       width={24}
       height={24}
-      fill="none"
-      stroke="currentColor"
+      fill="#C01A34"
+      stroke="#C01A34"
       strokeWidth={2}
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -19,4 +19,4 @@ function SvgBookmark(props) {
   );
 }
 
-export default SvgBookmark;
+export default SvgBookmarkBlack;

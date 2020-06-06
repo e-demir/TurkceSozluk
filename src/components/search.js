@@ -1,14 +1,14 @@
 import React from "react";
 import { Keyboard, Platform } from "react-native";
 import Box from "./box";
-import { Search, RotateCcw } from "./icons";
+import { Search, X } from "./icons";
 import Input from "./input";
 import theme from "../utils/theme";
 import Text from "./text";
 import Button from "./button";
 
 function SearchBox({ onChangeFocus }) {
-  
+
   const [isFocused, setFocus] = React.useState(false);
   const [value, setValue] = React.useState("");
 
@@ -61,7 +61,7 @@ function SearchBox({ onChangeFocus }) {
         </Button>
         {value.length > 0 && (
           <Button onPress={onClear} position="absolute" right={14} top={14}>
-            <RotateCcw
+            <X
               color={
                 Platform.OS === "ios"
                   ? theme.colors.textMedium

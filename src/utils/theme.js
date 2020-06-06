@@ -7,6 +7,7 @@ const sizes = {
 
 const colors = {
   red: '#E11E3C',
+  main: '#C01A34',
   softRed: '#F8F8F8',
   light: '#E8EAED',
   birlesikKelimeDark: '#2E494C',
